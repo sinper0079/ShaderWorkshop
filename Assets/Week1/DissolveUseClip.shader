@@ -7,7 +7,7 @@ Shader "Unlit/DissolveMultipleMaskUnlitShader"
         _NoiseTex("NoiseTex", 2D) = "white" {}
         _SecondNoiseTex("NoiseTex2", 2D) = "white" {}
         _ThirdNoiseTex("NoiseTex3", 2D) = "white" {}
-        _LerpAmount("Dissolve Amount", Range(-1, 1.0)) = 0.0
+        _LerpAmount("Dissolve Amount", Range(0.0, 1.0)) = 0.0
         _LineWidth("Amount Width", Range(0.0, 0.2)) = 0.1
         _FirstColor("First Color", Color) = (1, 0, 0, 1) // Flame edge color value
         _SecondColor("Second Color", Color) = (1, 0, 0, 1)
@@ -83,40 +83,35 @@ Shader "Unlit/DissolveMultipleMaskUnlitShader"
             {
 
                 fixed3 noiseCol = tex2D(_NoiseTex, i.uvNoiseTex).rgb;
+                              
+                                 
                 fixed3 secondNoiseCol = tex2D(_SecondNoiseTex, i.uvSecondNoiseTex).rgb;
              //    noiseCol = pow(noiseCol, 10); // should this move to vertex shader?
                 fixed Maskr= (noiseCol.r +secondNoiseCol.r)*0.5;
+                  clip(Maskr-_LerpAmount); // if less than0, The pixel will be removed
                   //fixed Maskr=secondNoiseCol.r ;
           
                 fixed Alpha = 1 - smoothstep(0.0, 1 , Maskr - _LerpAmount);//0.6
               //  fixed Alpha = step(0.0001, Maskr - _LerpAmount);
         
+            //_LineWidth width range simulates gradient. t is0Is the normal color, for1At the boundary of ablation
+            fixed t = 1 - smoothstep(0.0, _EdgeWidth, Maskr - _LerpAmount);
+                     
+             fixed3 FirstTexcol = tex2D(_FirstTex, i.uvFirstTex).rgb;
+            fixed3 finalCol = lerp(FirstTexcol*_Glow, _FirstColor*_Glow, t );
+
+                //fixed MinEdgeRange = clamp (0.5- _EdgeWidth,0,0.5 );//0.2
+                //fixed MaxEdgeRange = clamp(0.5 + _EdgeWidth , 0.5, 1);//0.8
+
+                               
+           
+                // fixed FirstAlpha = step(MinEdgeRange , Alpha);
+                //fixed FirstSmoothAlpha = smoothstep(0, MinEdgeRange, Alpha+ _EdgeSoftness);
+                //fixed FinalFirstAlpha = lerp(FirstAlpha, FirstSmoothAlpha, step(FirstAlpha,0.5 ));
                 
-
-                fixed MinEdgeRange = clamp (0.5- _EdgeWidth,0,0.5 );//0.2
-                fixed MaxEdgeRange = clamp(0.5 + _EdgeWidth , 0.5, 1);//0.8
-
-
-
-
-                fixed4 col = tex2D(_SecondTex, i.uvSecondTex);
-                // sample the texture
-                fixed3 FirstTexcol = tex2D(_FirstTex, i.uvFirstTex).rgb;
-                fixed3 SecondTexcol = tex2D(_SecondTex, i.uvSecondTex).rgb;
-                fixed FirstAlpha = step(MinEdgeRange , Alpha);
-                fixed FirstSmoothAlpha = smoothstep(0, MinEdgeRange, Alpha+ _EdgeSoftness);
-               // FirstSmoothAlpha = pow(FirstSmoothAlpha, 2.2);
-                fixed FinalFirstAlpha = lerp(FirstAlpha, FirstSmoothAlpha, step(FirstAlpha,0.5 ));
-             //   fixed FirstAlpha = step(MinEdgeRange - _EdgeSoftness, Alpha) - _EdgeSoftness;
-                fixed SecondAlpha = step(MaxEdgeRange , Alpha) ;//0.5 to 1
-                fixed SecondSmoothAlpha = smoothstep(MaxEdgeRange, 1, Alpha - _EdgeSoftness);
-              //  SecondSmoothAlpha = pow(SecondSmoothAlpha, 2.2);
-                fixed FinalSecondAlpha = lerp(SecondSmoothAlpha, SecondAlpha, step(SecondAlpha, 0.5));
-
-                fixed3 FirstColorBlend = lerp(FirstTexcol, _FirstColor*_Glow, FinalFirstAlpha);//first  if (a<0.5 && a >=0.2)
-                fixed3 SecondColorBlend = lerp(_FirstColor*_Glow, SecondTexcol, FinalSecondAlpha);//second if (a>=0.5&& a >=0.8)
-                fixed3 finalCol = lerp(FirstColorBlend, SecondColorBlend, step(0.5, Alpha));// 1
-
+                //fixed3 finalCol = lerp(FirstTexcol, _FirstColor*_Glow, FinalFirstAlpha);//first  if (a<0.5 && a >=0.2)
+              
+             
                // fixed3 finalCol = lerp(Firstcol, Secondcol, Alpha * step(0.0001, _LerpAmount));
                 return fixed4(finalCol, 1);
             }

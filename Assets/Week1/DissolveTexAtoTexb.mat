@@ -103,14 +103,14 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EdgeSoftness: -0.313
-    - _EdgeWidth: 0.039
+    - _EdgeSoftness: -0.222
+    - _EdgeWidth: 0.088
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Glow: 22
-    - _LerpAmount: 0.018
+    - _LerpAmount: -0.473
     - _LineWidth: 0.0294
     - _Metallic: 0
     - _OcclusionStrength: 1
