@@ -122,8 +122,8 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Glow: 42.8
-    - _LerpAmount: -0.517
-    - _LineWidth: 0.2
+    - _LerpAmount: -0.144
+    - _LineWidth: 0.0309
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
