@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DissolveTexAtoTexb
-  m_Shader: {fileID: 4800000, guid: 0c40f70213709464aa5d5755e3e16b81, type: 3}
+  m_Name: ForceField
+  m_Shader: {fileID: 4800000, guid: 34565244e42f7904f8ed20b3069fe511, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,16 +19,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AnimTex:
+        m_Texture: {fileID: 2800000, guid: 153573b33899d0c4abd4f0f9c0d098b5, type: 3}
+        m_Scale: {x: 1, y: 2}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: d3eb10e35ac15fe4cb9b3cb1d32ba82b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _BurnMap:
-        m_Texture: {fileID: 2800000, guid: 36ee8b74c2669544382c8ebfb39e96d7, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -47,20 +47,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _FirstTex:
-        m_Texture: {fileID: 2800000, guid: 1f701d1bcb721a54f8a872aa4f6604f7, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: b1bf77c85bc87b44f8231605748c2b76, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NoiseTex:
-        m_Texture: {fileID: 2800000, guid: fc2be5308fbe08f429951023b82e4dfb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -71,9 +63,9 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SecondTex:
-        m_Texture: {fileID: 2800000, guid: b1bf77c85bc87b44f8231605748c2b76, type: 3}
-        m_Scale: {x: 1, y: 1}
+    - _PulseTex:
+        m_Texture: {fileID: 2800000, guid: 86870046008791b4fa74c9a353fe3f8f, type: 3}
+        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
@@ -93,9 +85,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaClip: 0
+    - _AnimSpeed: 0.27
+    - _AnimTime: -0.28
     - _Blend: 0
     - _BumpScale: 1
-    - _BurnAmount: 0.226
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -103,20 +96,18 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EdgeSoftness: -0.32
-    - _EdgeWidth: 0.051
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Glow: 100
-    - _LerpAmount: -0.089
-    - _LineWidth: 0.103
+    - _Glow: 1
+    - _IntersectionPower: 1.86
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _RimPower: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -126,15 +117,12 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BurnFirstColor: {r: 0.96189463, g: 1, b: 0, a: 1}
-    - _BurnSecondColor: {r: 1, g: 0.63676953, b: 0, a: 1}
-    - _Color: {r: 0.24528301, g: 0.20247418, b: 0.20247418, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FirstColor: {r: 0, g: 0.5827389, b: 1, a: 1}
-    - _SecondColor: {r: 1, g: 0, b: 0, a: 1}
+    - _MainColor: {r: 0.15606974, g: 0.17234987, b: 0.6037736, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &4316486547952267510
+--- !u!114 &8657349200318843853
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
