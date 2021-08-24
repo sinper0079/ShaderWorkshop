@@ -51,14 +51,12 @@ Shader "Custom/Depth Fade" {
                 v2f o;
                 o.vertex = UnityObjectToClipPos (v.vertex);
                 o.uv = ComputeScreenPos (o.vertex);
-
-                  o.uv2 = TRANSFORM_TEX(v.uv2, _MainTex);
+                o.uv2 = TRANSFORM_TEX(v.uv2, _MainTex);
                 return o;
             }
  
             float4 frag (v2f i) : SV_Target
             { 
-
                 float2 OffsetUv =  i.uv2+ (0, _Time.y*_AnimSpeed);
                 float4 MainTexcol = tex2D(_MainTex, OffsetUv);
                 float2 uv = i.uv.xy / i.uv.w;
