@@ -55,4 +55,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764dbb2aa91d7b14189358621573257d, type: 3}
   m_Name: NewMyPostProcessRendererFeature
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0

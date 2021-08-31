@@ -8,8 +8,8 @@ using UnityEngine.Rendering.Universal;
 public abstract class MyPostProcessBase : MonoBehaviour {
 	public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingTransparents;
 	public RenderTargetIdentifier cameraColorTarget;
-
-	public virtual void OnEnable() {
+    static Mesh fullScreenTriangle;
+    public virtual void OnEnable() {
 //		Debug.Log("MyPostProcessVolumeMonoBehaviour.OnEnable");
 		MyPostProcessManager.instance.Register(this);
 	}
@@ -26,4 +26,24 @@ public abstract class MyPostProcessBase : MonoBehaviour {
 
 	public virtual void OnPostProcessExecute(ScriptableRenderContext context, ref RenderingData renderingData) {
 	}
+
+    static public Mesh GetFullScreenTriangleMesh()
+    {
+        if (!fullScreenTriangle)
+        {
+            fullScreenTriangle = new Mesh()
+            {
+                name = "Week004_ProjectionUpdater",
+                vertices = new Vector3[] {
+                    new Vector3(-1, -1, 0),
+                    new Vector3( 3, -1, 0),
+                    new Vector3(-1,  3, 0),
+                },
+                triangles = new int[] { 0, 1, 2 }
+            };
+            fullScreenTriangle.UploadMeshData(true);
+        }
+
+        return fullScreenTriangle;
+    }
 }
